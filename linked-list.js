@@ -185,8 +185,6 @@ class LinkedList {
       this.length--;
       return currVal.val;
     }
-
-
   }
 
   /** average(): return an average of all values in the list */
