@@ -60,7 +60,7 @@ class LinkedList {
   }
 
   /** pop(): return & remove last item. */
- //[5, 10]
+  //[5, 10]
   pop() {
     if (!this.length) {
       throw new Error;
@@ -90,7 +90,7 @@ class LinkedList {
   shift() {
     if (this.head === null) {
       throw new Error;
-    } else if (this.head === this.tail){
+    } else if (this.head === this.tail) {
       let res = this.head.val;
       this.head = null;
       this.tail = null;
@@ -107,35 +107,85 @@ class LinkedList {
   /** getAt(idx): get val at idx. */
 
   getAt(idx) {
-    if(idx > this.length-1 || idx < 0){
+    if (idx > this.length - 1 || idx < 0) {
       throw new Error;
     } else {
-    let count = 0;
-    let currVal = this.head;
+      let count = 0;
+      let currVal = this.head;
 
-    while(count < idx){
-      count++;
-      currVal = currVal.next;
+      while (count < idx) {
+        count++;
+        currVal = currVal.next;
+      }
+      return currVal.val;
     }
-    return currVal.val;
-  }
   }
 
   /** setAt(idx, val): set val at idx to val */
 
   setAt(idx, val) {
+    if (idx > this.length - 1 || idx < 0) {
+      throw new Error;
+    } else {
+      let count = 0;
+      let currVal = this.head;
+      while (count < idx) {
+        count++;
+        currVal = currVal.next;
+      }
+      currVal.val = val;
+    }
 
   }
 
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
-
+    if (idx > this.length || idx < 0) {
+      throw new Error;
+    } else if (idx === 0) {
+      this.unshift(val);
+    } else if (idx === this.length) {
+      this.push(val);
+    } else {
+      let count = 0;
+      let afterVal = this.head;
+      let beforeVal = this.head;
+      while (count < idx) {
+        beforeVal = afterVal;
+        afterVal = afterVal.next;
+        count++;
+      }
+      let newNode = new Node(val);
+      beforeVal.next = newNode;
+      newNode.next = afterVal;
+      this.length++;
+    }
   }
 
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
+    if (idx > this.length-1 || idx < 0) {
+      throw new Error;
+    } else if (idx === 0){
+      return this.shift();
+    } else if (idx === this.length-1){
+      return this.pop();
+    } else {
+      let count = 0;
+      let prevVal = this.head;
+      let currVal = this.head;
+      while(count < idx){
+        prevVal = currVal;
+        currVal = currVal.next;
+        count++;
+      }
+      prevVal.next = currVal.next;
+      this.length--;
+      return currVal.val;
+    }
+
 
   }
 
